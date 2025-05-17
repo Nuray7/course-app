@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Instructors List</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+      <h6 class="m-0 font-weight-bold text-primary">Instructors</h6>
+      <a th:href="@{/admin/instructor/create}" class="btn btn-success btn-sm">Create New</a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Bio</th>
+            <th>Image</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="instructor : ${instructors}">
+            <td th:text="${instructor.id}"></td>
+            <td th:text="${instructor.name}"></td>
+            <td th:text="${instructor.bio}"></td>
+            <td>
+              <img th:src="${instructor.imageUrl}" alt="Instructor Image" style="height: 50px;"/>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

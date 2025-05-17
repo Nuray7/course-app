@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Create Student</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Create Student</h6>
+    </div>
+    <div class="card-body">
+      <form th:action="@{/courses/create}" th:object="${courses}" method="post">
+
+        <div class="form-group">
+          <input th:field="*{fullName}" type="text" placeholder="Full Name" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+        </div>
+
+        <div class="form-group">
+          <input th:field="*{email}" type="email" placeholder="Email" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+
+        <div class="form-group">
+          <input th:field="*{password}" type="password" placeholder="Password" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+
+        <div class="form-group form-check">
+          <input th:field="*{isNew}" type="checkbox" class="form-check-input" id="isNew"/>
+          <label class="form-check-label" for="isNew">Is New Student?</label>
+        </div>
+
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Create</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Edit Course</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit Course</h6>
+        </div>
+        <div class="card-body">
+            <form th:action="@{'/admin/courses/edit/' + ${course.id}}" th:object="${course}" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input th:field="*{title}" type="text" id="title" class="form-control" placeholder="Course Title"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea th:field="*{description}" id="description" class="form-control" rows="4" placeholder="Course Description"></textarea>
+                    <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input th:field="*{category}" type="text" id="category" class="form-control" placeholder="Category"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageUrl">Image URL</label>
+                    <input th:field="*{imageUrl}" type="text" id="imageUrl" class="form-control" placeholder="Image URL"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input th:field="*{isNew}" type="checkbox" class="form-check-input" id="isNew"/>
+                    <label class="form-check-label" for="isNew">Is New</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input th:field="*{isPopular}" type="checkbox" class="form-check-input" id="isPopular"/>
+                    <label class="form-check-label" for="isPopular">Is Popular</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="durationInHours">Duration (hours)</label>
+                    <input th:field="*{durationInHours}" type="number" id="durationInHours" class="form-control" placeholder="Duration in hours"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('durationInHours')}" th:errors="*{durationInHours}"></span>
+                </div>
+
+                <!-- Optional: You can add Instructor select if you have a list of instructors -->
+                <!--
+                <div class="form-group">
+                    <label for="instructor">Instructor</label>
+                    <select th:field="*{instructor.id}" id="instructor" class="form-control">
+                        <option th:each="instr : ${instructors}"
+                                th:value="${instr.id}"
+                                th:text="${instr.name}"
+                                th:selected="${instr.id == course.instructor.id}">
+                        </option>
+                    </select>
+                </div>
+                -->
+
+                <button type="submit" class="btn btn-primary">Update Course</button>
+                <a th:href="@{/admin/courses}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

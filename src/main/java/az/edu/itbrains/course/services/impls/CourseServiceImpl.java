@@ -8,6 +8,7 @@ import az.edu.itbrains.course.repositories.CourseRepository;
 import az.edu.itbrains.course.services.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
-
+    private  final ModelMapper modelMapper;
     @Override
     public void createCourse(@Valid CourseCreateDto courseCreateDto, MultipartFile image) {
         Course course = new Course();

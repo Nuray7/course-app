@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Courses List</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Courses</h2>
+    <a th:href="@{/admin/courses/create}" class="btn btn-success mb-3">Create New Course</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Duration</th>
+            <th>New</th>
+            <th>Popular</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.id}">1</td>
+            <td th:text="${course.title}">Sample Title</td>
+            <td th:text="${course.category}">Category</td>
+            <td th:text="${course.durationInHours}">10</td>
+            <td><input type="checkbox" disabled th:checked="${course.isNew}"/></td>
+            <td><input type="checkbox" disabled th:checked="${course.isPopular}"/></td>
+            <td>
+                <a th:href="@{'/admin/courses/edit/' + ${course.id}}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{'/admin/courses/delete/' + ${course.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

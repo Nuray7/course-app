@@ -18,34 +18,35 @@ public class SecurityConfig {
     private CustomUserDetailService userDetailService;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(x->x.disable())
-                .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/admin").authenticated()
+                .csrf(x -> x.disable())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(
+                                "/register",
+                                "/login",
+                                "/forgot-password",
+                                "/change-password",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**"
+                        ).permitAll()
+                        .requestMatchers("/contact").authenticated()
                         .anyRequest().permitAll()
                 )
-                .formLogin((form) ->{
-                    form
-                            .loginPage("/login")
-                            .failureUrl("/login")
-                            .defaultSuccessUrl("/");
-                })
-                .exceptionHandling(e -> {
-                    e.accessDeniedPage("/");
-                });
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .permitAll()
+                )
+                .exceptionHandling(e -> e.accessDeniedPage("/"));
 
         return http.build();
-    }
-
-
-
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder());
     }
 }

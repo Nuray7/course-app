@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Create Instructor</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Create Instructor</h6>
+    </div>
+    <div class="card-body">
+      <form th:action="@{/dashboard/instructors/create}" th:object="${instructor}" method="post">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" th:field="*{fullName}" type="text" placeholder="Full Name" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" th:field="*{email}" type="email" placeholder="Email" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" th:field="*{phone}" type="text" placeholder="Phone" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        </div>
+
+        <div class="form-group">
+          <input type="submit" value="Create" class="btn btn-success"/>
+          <a href="/dashboard/instructors" class="btn btn-secondary">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
