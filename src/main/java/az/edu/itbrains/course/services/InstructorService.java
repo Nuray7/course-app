@@ -8,17 +8,32 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface InstructorService {
+//    List<InstructorDto> getAllInstructors();
+//
+//    InstructorDto getInstructorById(Long id);
+//
+//    void updateInstructor(Long id, InstructorDto instructorDto);
+//
+//    List<InstructorDto> getLatestInstructors(Pageable pageable);
+//
+//    void createInstructor(InstructorCreateDto instructorCreateDto, MultipartFile image);
+//
+//    void deleteInstructor(Long id);
+
     List<InstructorDto> getAllInstructors();
 
     InstructorDto getInstructorById(Long id);
 
+    void updateInstructor(InstructorDto instructorDto, MultipartFile image);
 
-
-    void updateInstructor(Long id, InstructorDto instructorDto);
 
     List<InstructorDto> getLatestInstructors(Pageable pageable);
 
-    void createInstructor(InstructorCreateDto instructorDto, MultipartFile image);
+    void createInstructor(InstructorCreateDto instructorCreateDto, MultipartFile image);
 
     void deleteInstructor(Long id);
 }
+
+
+
+

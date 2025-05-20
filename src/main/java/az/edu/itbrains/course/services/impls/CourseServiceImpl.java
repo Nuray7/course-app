@@ -6,6 +6,8 @@ import az.edu.itbrains.course.dtos.create.CourseCreateDto;
 import az.edu.itbrains.course.models.Course;
 import az.edu.itbrains.course.repositories.CourseRepository;
 import az.edu.itbrains.course.services.CourseService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,8 +15,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,18 +26,32 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private  final ModelMapper modelMapper;
+    private final Cloudinary cloudinary;
     @Override
-    public void createCourse(@Valid CourseCreateDto courseCreateDto, MultipartFile image) {
-        Course course = new Course();
-        course.setTitle(courseCreateDto.getTitle());
-        course.setDescription(courseCreateDto.getDescription());
-        course.setCategory(courseCreateDto.getCategory());
-        course.setImageUrl(courseCreateDto.getImageUrl());
-        course.setNew(courseCreateDto.isNew());
-        course.setPopular(courseCreateDto.isPopular());
+    public void createCourse(CourseCreateDto courseCreateDto, MultipartFile image) {
+
+        if (image == null || image.isEmpty()) {
+            throw new IllegalArgumentException("Product image is required");
+        }
+
+        try {
+             Map uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+             String photoUrl = (String) uploadResult.get("url");
+
+
+             Course course = new Course();
+             course.setTitle(courseCreateDto.getTitle());
+             course.setDescription(courseCreateDto.getDescription());
+             course.setCategory(courseCreateDto.getCategory());
+             course.setImageUrl(photoUrl);
+             course.setNew(courseCreateDto.isNew());
+             course.setPopular(courseCreateDto.isPopular());
 
 
         courseRepository.save(course);
+        } catch (IOException e) {
+            throw new RuntimeException("Image upload failed", e);
+        }
     }
 
     @Override
@@ -87,7 +105,7 @@ public class CourseServiceImpl implements CourseService {
             dto.setImageUrl(course.getImageUrl());
             dto.setNew(course.isNew());
             dto.setPopular(course.isPopular());
-            dto.setInstructorName(course.getInstructor() != null ? course.getInstructor().getName() : "N/A");
+
             courseDtos.add(dto);
         }
         return courseDtos;

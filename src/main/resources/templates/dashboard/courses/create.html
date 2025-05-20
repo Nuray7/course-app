@@ -3,44 +3,77 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{/dashboard/layout}">
 <head>
-  <title>Create Student</title>
+  <title>Create Course</title>
 </head>
 <body>
 <div layout:fragment="content">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Create Student</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Create Course</h6>
     </div>
     <div class="card-body">
-      <form th:action="@{/courses/create}" th:object="${courses}" method="post">
+
+      <form th:action="@{/admin/courses/create}" th:object="${course}" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
-          <input th:field="*{fullName}" type="text" placeholder="Full Name" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
-        </div>
-
-        <div class="form-group">
-          <input th:field="*{email}" type="email" placeholder="Email" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+          <label for="title">Full Name</label>
+          <input th:field="*{title}" id="title" type="text" placeholder="Full Name" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         </div>
 
         <div class="form-group">
-          <input th:field="*{password}" type="password" placeholder="Password" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+          <label for="description">Description</label>
+          <input th:field="*{description}" id="description" type="text" placeholder="Description" class="form-control"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
         </div>
-
-        <div class="form-group form-check">
-          <input th:field="*{isNew}" type="checkbox" class="form-check-input" id="isNew"/>
-          <label class="form-check-label" for="isNew">Is New Student?</label>
-        </div>
-
-
 
         <div class="form-group">
-          <button type="submit" class="btn btn-success">Create</button>
+          <label for="category">Category</label>
+          <input th:field="*{category}" id="category" type="text" class="form-control" placeholder="Category">
+          <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger"></span>
         </div>
 
+        <div class="form-group">
+          <label for="isNew">New</label>
+          <select th:field="*{isNew}" id="isNew" class="form-control">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          <span th:if="${#fields.hasErrors('isNew')}" th:errors="*{isNew}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="durationInHours">Duration (in hours)</label>
+          <input th:field="*{durationInHours}" id="durationInHours" type="number" step="1" class="form-control" placeholder="Duration">
+          <span th:if="${#fields.hasErrors('durationInHours')}" th:errors="*{durationInHours}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="isPopular">Popular</label>
+          <select th:field="*{isPopular}" id="isPopular" class="form-control">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          <span th:if="${#fields.hasErrors('isPopular')}" th:errors="*{isPopular}" class="text-danger"></span>
+        </div>
+
+        <!-- File upload -->
+        <div class="form-group mt-3">
+          <label for="imageInput" class="custom-file-upload">
+            <i class="fas fa-upload"></i> Choose File
+          </label>
+          <input type="file" name="image" id="imageInput" style="display: none;"
+                 onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : 'No file selected'" />
+
+          <div id="fileName" style="color: #666; font-size: 14px; margin-top: 8px;">No file selected</div>
+        </div>
+
+        <input type="submit" class="btn btn-success my-3" value="Create">
       </form>
+
+
+
+
     </div>
   </div>
 </div>

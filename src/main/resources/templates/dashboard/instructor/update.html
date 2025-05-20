@@ -1,43 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/dashboard/layout}">
 <head>
-  <title>Update Instructor</title>
+  <title>Edit Instructor</title>
 </head>
 <body>
 <div layout:fragment="content">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Update Instructor</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Edit Instructor</h6>
     </div>
     <div class="card-body">
-
-      <form th:action="@{/admin/instructor/update}" th:object="${instructor}" method="post">
-        <input type="hidden" th:field="*{id}"/>
+      <form th:action="@{'/admin/instructors/edit/' + ${instructor.id}}" th:object="${instructor}" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
           <label for="name">Name</label>
-          <input id="name" th:field="*{name}" type="text" placeholder="Name" class="form-control"/>
+          <input th:field="*{name}" type="text" id="name" class="form-control" placeholder="Instructor Name"/>
           <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </div>
 
         <div class="form-group">
           <label for="bio">Bio</label>
-          <textarea id="bio" th:field="*{bio}" placeholder="Bio" class="form-control"></textarea>
+          <textarea th:field="*{bio}" id="bio" class="form-control" rows="4" placeholder="Instructor Biography"></textarea>
+          <span class="text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
         </div>
 
         <div class="form-group">
           <label for="imageUrl">Image URL</label>
-          <input id="imageUrl" th:field="*{imageUrl}" type="text" placeholder="Image URL" class="form-control"/>
+          <input th:field="*{imageUrl}" type="text" id="imageUrl" class="form-control" placeholder="Image URL"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></span>
         </div>
 
+        <!--
+        Optional: If you want to allow image upload instead of URL, you can add:
         <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-primary"/>
-          <a th:href="@{/admin/instructor}" class="btn btn-secondary">Back</a>
+            <label for="imageFile">Upload Image</label>
+            <input type="file" name="imageFile" id="imageFile" class="form-control-file"/>
         </div>
-      </form>
+        -->
 
+        <button type="submit" class="btn btn-primary">Update Instructor</button>
+        <a th:href="@{/admin/instructors}" class="btn btn-secondary">Cancel</a>
+      </form>
     </div>
   </div>
 </div>

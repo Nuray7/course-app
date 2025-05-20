@@ -12,6 +12,7 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
         List<Course> findByIsNewTrue(Pageable pageable);
+        // ne ucundur?
         List<Course> findByIsPopularTrue(Pageable pageable);
         List<Course> findByCategoryIgnoreCase(String category);
 

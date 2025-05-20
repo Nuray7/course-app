@@ -1,11 +1,11 @@
 package az.edu.itbrains.course.dtos;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CourseDto {
 
     private Long id;
@@ -24,5 +24,5 @@ public class CourseDto {
 
     private int durationInHours;
 
-    private String instructorName;
+
 }

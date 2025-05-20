@@ -5,8 +5,10 @@ import az.edu.itbrains.course.dtos.CourseDto;
 import az.edu.itbrains.course.dtos.create.CourseCreateDto;
 import az.edu.itbrains.course.services.CourseService;
 import org.modelmapper.ModelMapper;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,11 +39,11 @@ public class CourseController {
         return "dashboard/courses/create";
     }
 
-    @PostMapping("/courses/create")
-    public String createCourse(@ModelAttribute("course") CourseCreateDto courseCreateDto,
-                               @RequestParam("imageFile") MultipartFile imageFile) {
-        courseService.createCourse(courseCreateDto, imageFile);
-        return "redirect:/admin/courses";
 
+
+    @PostMapping("/courses/delete/{id}")
+    public String deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourse(id);
+        return "redirect:/admin/courses";
     }
 }

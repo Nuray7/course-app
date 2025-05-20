@@ -17,4 +17,9 @@ public class Instructor {
     private Long id;
 
     private String name;
+
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
+    private String imageUrl;
 }

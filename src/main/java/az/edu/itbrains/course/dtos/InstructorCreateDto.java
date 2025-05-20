@@ -2,17 +2,17 @@ package az.edu.itbrains.course.dtos;
 
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class InstructorCreateDto {
-    @NotBlank
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
+    @NotBlank(message = "Bio cannot be blank")
     private String bio;
+
     private String imageUrl;
 }
