@@ -28,12 +28,14 @@ public class Course {
     private boolean isNew;
 
     private boolean isPopular;
+    private Double durationInHours;
 
-    private int durationInHours;
+
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
+
 
 
 }

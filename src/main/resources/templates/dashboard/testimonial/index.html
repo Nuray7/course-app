@@ -1,42 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/dashboard/layout}">
 <head>
-    <title>Instructors</title>
+    <title>Testimonials</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <a href="/dashboard/instructors/create" class="btn btn-primary">Create Instructor</a>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="instructor : ${instructors}">
-                        <td th:text="${instructor.fullName}">Full Name</td>
-                        <td th:text="${instructor.email}">Email</td>
-                        <td th:text="${instructor.phone}">Phone</td>
-                        <td>
-                            <a th:href="@{'/dashboard/instructors/edit/' + ${instructor.id}}" class="btn btn-warning">Update</a>
-                            <a th:href="@{'/dashboard/instructors/remove/' + ${instructor.id}}" class="btn btn-danger">Remove</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <h2>Testimonials</h2>
+    <a th:href="@{/admin/testimonial/create}" class="btn btn-success mb-3">Create New Testimonial</a>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student Name</th>
+            <th>Course Title</th>
+            <th>Comment</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="testimonial : ${testimonials}">
+            <td th:text="${testimonial.id}">1</td>
+            <td th:text="${testimonial.studentName}">John Doe</td>
+            <td th:text="${testimonial.courseTitle}">Java Basics</td>
+            <td th:text="${testimonial.comment}">Great course!</td>
+            <td>
+                <img th:src="@{${testimonial.imageUrl}}" alt="Student Image" style="max-height: 80px; max-width: 80px;"/>
+            </td>
+            <td>
+                <form th:action="@{'/admin/testimonial/delete/' + ${testimonial.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

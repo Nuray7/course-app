@@ -13,41 +13,5 @@ public class DashboardController {
     }
 
 
-
-//    @GetMapping("/dashboard/category")
-//    public String categoryPage() {
-//        return "category";
-//    }
-//
-//    @GetMapping("/dashboard/product")
-//    public String productPage() {
-//        return "product";
-//    }
-//
-//    @GetMapping("/dashboard/user")
-//    public String userPage() {
-//        return "user";
-//    }
-//
-//    @GetMapping("/dashboard/role")
-//    public String rolePage() {
-//        return "role";
-//    }
-//
-//    @GetMapping("/dashboard/contact")
-//    public String contactPage() {
-//        return "contact";
-//    }
-//
-//    @GetMapping("/dashboard/testimonial")
-//    public String testimonialPage() {
-//        return "testimonial";
-//    }
-//
-//    @GetMapping("/dashboard/instructor")
-//    public String instructorPage() {
-//        return "instructor";
-//    }
 }
-
 

@@ -3,38 +3,42 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{/dashboard/layout}">
 <head>
-  <title>Create Instructor</title>
+  <title>Create Testimonial</title>
 </head>
 <body>
 <div layout:fragment="content">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Create Instructor</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Create Testimonial</h6>
     </div>
     <div class="card-body">
-      <form th:action="@{/dashboard/instructors/create}" th:object="${instructor}" method="post">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input id="fullName" th:field="*{fullName}" type="text" placeholder="Full Name" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+      <form th:action="@{/admin/testimonial/create}" th:object="${testimonial}" method="post" enctype="multipart/form-data">
+
+        <div class="form-group mb-3">
+          <label for="studentName">Student Name</label>
+          <input type="text" th:field="*{studentName}" class="form-control" id="studentName" placeholder="Enter student name" required />
+          <span class="text-danger" th:if="${#fields.hasErrors('studentName')}" th:errors="*{studentName}"></span>
         </div>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" th:field="*{email}" type="email" placeholder="Email" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <div class="form-group mb-3">
+          <label for="courseTitle">Course Title</label>
+          <input type="text" th:field="*{courseTitle}" class="form-control" id="courseTitle" placeholder="Enter course title" required />
+          <span class="text-danger" th:if="${#fields.hasErrors('courseTitle')}" th:errors="*{courseTitle}"></span>
         </div>
 
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input id="phone" th:field="*{phone}" type="text" placeholder="Phone" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        <div class="form-group mb-3">
+          <label for="comment">Comment</label>
+          <textarea th:field="*{comment}" class="form-control" id="comment" rows="4" placeholder="Enter comment" required></textarea>
+          <span class="text-danger" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
         </div>
 
-        <div class="form-group">
-          <input type="submit" value="Create" class="btn btn-success"/>
-          <a href="/dashboard/instructors" class="btn btn-secondary">Back</a>
+        <div class="form-group mb-3">
+          <label for="image">Student Image</label>
+          <input type="file" th:field="*{image}" class="form-control" id="image" accept="image/*" required />
+          <span class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
         </div>
+
+        <button type="submit" class="btn btn-success">Create</button>
       </form>
     </div>
   </div>

@@ -37,6 +37,8 @@ public class InstructorController {
         return "dashboard/instructor/create";
     }
 
+
+
     @PostMapping("/instructor/create")
     public String createIn(@Valid InstructorCreateDto instructorCreateDto, BindingResult bindingResult, MultipartFile image) {
         if(bindingResult.hasErrors()){
@@ -46,6 +48,8 @@ public class InstructorController {
         return "redirect:/admin/instructor";
 
     }
+
+
 
     @GetMapping("/instructor/edit/{id}")
     public String editInstructorForm(@PathVariable Long id, Model model) {
@@ -82,4 +86,6 @@ public class InstructorController {
         }
         return "redirect:/admin/instructor";
     }
+
+
 }

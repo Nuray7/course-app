@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 public class TestimonialDto {
     private Long id;
     private String studentName;
-    private String content;
+    private String comment;
+    private String courseTitle;
+    private String imageUrl;
 }

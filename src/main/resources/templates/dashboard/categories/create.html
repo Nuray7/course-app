@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Page Title Goes Here</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+  <form class="container" method="post" th:object="${category}" enctype="multipart/form-data">
+    <div class="form-group" >
+      <input th:field="*{name}" type="text" class="form-control" placeholder="Title">
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+
+
+
+    <input type="submit" class="btn btn-success my-3" value="Create">
+  </form>
+
+</div>
+</body>
+</html>

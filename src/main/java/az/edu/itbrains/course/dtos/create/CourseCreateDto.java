@@ -20,5 +20,6 @@ public class CourseCreateDto {
 
     private boolean isPopular;
 
-    private int durationInHours;
+    private Double durationInHours;
+
 }

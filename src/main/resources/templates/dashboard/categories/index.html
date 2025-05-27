@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Category List</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <a href="/admin/categories/create" class="btn btn-primary">Create New Category</a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Id</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="category : ${categories}">
+            <td th:text="${category.id}">Category Id</td>
+            <td th:text="${category.name}">Category Name</td>
+
+            <td>
+              <a th:href="@{'/admin/categories/edit/' + ${category.id}}" class="btn btn-warning btn-sm">Edit</a>
+              <form th:action="@{'/admin/categories/delete/' + ${category.id}}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

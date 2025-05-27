@@ -22,4 +22,8 @@ public class Instructor {
     private String bio;
 
     private String imageUrl;
+
+    private String firstName;
+    private String lastName;
+
 }

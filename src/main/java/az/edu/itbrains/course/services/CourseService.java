@@ -1,6 +1,7 @@
 package az.edu.itbrains.course.services;
 
 
+import az.edu.itbrains.course.dtos.TestimonialDto;
 import az.edu.itbrains.course.dtos.create.CourseCreateDto;
 import az.edu.itbrains.course.dtos.CourseDto;
 import jakarta.validation.Valid;
@@ -16,6 +17,8 @@ public interface CourseService {
 
     void deleteCourse(Long id);
 
+    void updateCourse(Long id, CourseCreateDto dto, MultipartFile image);
+
     List<CourseDto> getAllCourses();
 
     List<CourseDto> getNewCourses(Pageable pageable);
@@ -25,4 +28,10 @@ public interface CourseService {
     List<CourseDto> getCoursesByCategory(String category);
 
     List<CourseDto> getCourses();
+
+    void update(TestimonialDto testimonialDto);
+
+
+
+
 }

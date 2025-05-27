@@ -14,6 +14,7 @@ public class CourseDto {
 
     private String description;
 
+
     private String category;
 
     private String imageUrl;
@@ -22,7 +23,12 @@ public class CourseDto {
 
     private boolean isPopular;
 
-    private int durationInHours;
+
+    private double rating;
+    private int reviewCount;
+    private String instructorName;
+
+
 
 
 }

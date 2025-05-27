@@ -1,43 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/dashboard/layout}">
 <head>
-  <title>Update Instructor</title>
+  <title>Edit Testimonial</title>
 </head>
 <body>
 <div layout:fragment="content">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Update Instructor</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Edit Testimonial</h6>
     </div>
     <div class="card-body">
-      <form th:action="@{'/dashboard/instructors/update/' + ${instructor.id}}"
-            th:object="${instructor}" method="post">
+      <form th:action="@{'/admin/testimonials/edit/' + ${testimonial.id}}" th:object="${testimonial}" method="post" enctype="multipart/form-data">
+
         <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input id="fullName" th:field="*{fullName}" type="text" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+          <label for="name">Name</label>
+          <input th:field="*{name}" type="text" id="name" class="form-control" placeholder="Full Name"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </div>
 
         <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" th:field="*{email}" type="email" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+          <label for="position">Position</label>
+          <input th:field="*{position}" type="text" id="position" class="form-control" placeholder="Position"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone</label>
-          <input id="phone" th:field="*{phone}" type="text" class="form-control"/>
-          <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+          <label for="message">Message</label>
+          <textarea th:field="*{message}" id="message" class="form-control" rows="4" placeholder="Testimonial Message"></textarea>
+          <span class="text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></span>
         </div>
-
-        <!-- Əlavə sahələr varsa buraya əlavə edilə bilər -->
 
         <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-success"/>
-          <a href="/dashboard/instructors" class="btn btn-secondary">Back</a>
+          <label for="imageUrl">Image URL</label>
+          <input th:field="*{imageUrl}" type="text" id="imageUrl" class="form-control" placeholder="Image URL"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></span>
         </div>
+
+        <!-- Əlavə olaraq şəkil yükləmə bölməsi (əgər image upload varsa): -->
+        <!--
+        <div class="form-group">
+          <label for="imageFile">Upload Image</label>
+          <input type="file" name="imageFile" id="imageFile" class="form-control-file"/>
+        </div>
+        -->
+
+        <button type="submit" class="btn btn-primary">Update Testimonial</button>
+        <a th:href="@{/admin/testimonials}" class="btn btn-secondary">Cancel</a>
       </form>
     </div>
   </div>

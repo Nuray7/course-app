@@ -2,6 +2,7 @@ package az.edu.itbrains.course.services.impls;
 
 
 import az.edu.itbrains.course.dtos.CourseDto;
+import az.edu.itbrains.course.dtos.TestimonialDto;
 import az.edu.itbrains.course.dtos.create.CourseCreateDto;
 import az.edu.itbrains.course.models.Course;
 import az.edu.itbrains.course.repositories.CourseRepository;
@@ -68,6 +69,8 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+
+
     @Override
     public List<CourseDto> getAllCourses() {
         return convertToDtoList(courseRepository.findAll());
@@ -94,6 +97,11 @@ public class CourseServiceImpl implements CourseService {
         return convertToDtoList(courseRepository.findAll());
     }
 
+    @Override
+    public void update(TestimonialDto testimonialDto) {
+
+    }
+
     private List<CourseDto> convertToDtoList(List<Course> courses) {
         List<CourseDto> courseDtos = new ArrayList<>();
         for (Course course : courses) {
@@ -109,5 +117,29 @@ public class CourseServiceImpl implements CourseService {
             courseDtos.add(dto);
         }
         return courseDtos;
+    }
+    @Override
+    public void updateCourse(Long id, CourseCreateDto dto, MultipartFile image) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + id));
+
+        course.setTitle(dto.getTitle());
+        course.setDescription(dto.getDescription());
+        course.setCategory(dto.getCategory());
+        course.setNew(dto.isNew());
+        course.setPopular(dto.isPopular());
+        course.setDurationInHours(dto.getDurationInHours());
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                Map uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+                String photoUrl = (String) uploadResult.get("url");
+                course.setImageUrl(photoUrl);
+            } catch (IOException e) {
+                throw new RuntimeException("Image upload failed", e);
+            }
+        }
+
+        courseRepository.save(course);
     }
 }
